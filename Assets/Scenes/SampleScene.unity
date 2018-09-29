@@ -409,10 +409,10 @@ MonoBehaviour:
   objectsDetail:
   - key: Bullet
     prefab: {fileID: 1317612597139262, guid: f3c2743b905e270468cd767923865320, type: 2}
-    count: 1000
+    count: 200
   - key: Missile
     prefab: {fileID: 1317612597139262, guid: 85236d1e330c80c42bedfd0c2b182502, type: 2}
-    count: 100
+    count: 50
 --- !u!4 &338948636
 Transform:
   m_ObjectHideFlags: 0

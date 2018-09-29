@@ -41,8 +41,7 @@ public class ObjectPoolManager : MonoBehaviour
     {
         objectsPool = new Dictionary<string, List<GameObject>>();
         foreach (PoolableObjectConfig obj in objectsDetail)
-        {
-           
+        {          
             objectsPool.Add(obj.key, InstantiateObjectForPool(obj));
         }
 
@@ -56,8 +55,10 @@ public class ObjectPoolManager : MonoBehaviour
             objInstance.SetActive(false);
             objInstance.transform.SetParent(this.transform);
             objInstance.name = obj.prefab.name;
-            objInstance.AddComponent<PoolableObjectInstance>().Key = obj.key;
-
+            objInstance.AddComponent<PoolableObjectInstance>();
+            PoolableObjectInstance poolableRef = objInstance.GetComponent<PoolableObjectInstance>();
+            poolableRef.Key = obj.key;
+            poolableRef.UseStatus = PoolableObjectInstance.UsageStatus.Ready;
             objects.Add(objInstance);
         }
         return objects;
@@ -69,22 +70,14 @@ public class ObjectPoolManager : MonoBehaviour
             List<GameObject> objectWithThisKey = objectsPool[key];
             if (objectWithThisKey.Count > 1)
             {
-                GameObject temp = objectWithThisKey[1];
-                temp.SetActive(true);
-                temp.transform.SetParent(null);
-                objectWithThisKey.RemoveAt(1);
-                return temp.GetComponent<T>();
+                return PrepareItemtoExit(objectWithThisKey).GetComponent<T>();
             }
             else
             {
                 PoolableObjectConfig objconf = new PoolableObjectConfig(key, objectWithThisKey[0], defaultRegenerateCount);
                 objectWithThisKey.AddRange(InstantiateObjectForPool(objconf));
-
-                GameObject temp = objectWithThisKey[1];
-                temp.SetActive(true);
-                temp.transform.SetParent(null);
-                objectWithThisKey.RemoveAt(1);
-                return temp.GetComponent<T>();
+              
+                return PrepareItemtoExit(objectWithThisKey).GetComponent<T>();
             }       
         }
         else
@@ -94,11 +87,25 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
     }
+    GameObject PrepareItemtoExit(List<GameObject> selectedList)
+    {
+        GameObject temp = selectedList[1];
+        temp.SetActive(true);
+        temp.transform.SetParent(null);
+        selectedList.RemoveAt(1);
+        temp.GetComponent<PoolableObjectInstance>().UseStatus = PoolableObjectInstance.UsageStatus.InUse;
+        return temp;
+    }
     public void RecyleObject(PoolableObjectInstance poi)
     {
-        poi.gameObject.SetActive(false);
-        poi.transform.SetParent(this.transform);
-        objectsPool[poi.Key].Add(poi.gameObject);
+        if (poi.UseStatus == PoolableObjectInstance.UsageStatus.InUse)
+        {
+            poi.gameObject.SetActive(false);
+            poi.transform.SetParent(this.transform);
+            poi.UseStatus = PoolableObjectInstance.UsageStatus.Ready;
+            objectsPool[poi.Key].Add(poi.gameObject);
+        }
+       
     }
 }
 
