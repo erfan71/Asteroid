@@ -6,6 +6,7 @@ public class Missile : Ammo {
 
     public override void Fire(Vector2 force)
     {
+        base.Fire(force);
         StartCoroutine(AddingForceRoutine(force));
     }
     IEnumerator AddingForceRoutine(Vector2 force)

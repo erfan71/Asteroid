@@ -16,4 +16,23 @@ public class PoolableObjectInstance : MonoBehaviour {
             key = value;
         }
     }
+
+    public enum UsageStatus
+    {
+        Ready,
+        InUse,
+    }
+
+    private UsageStatus useStatus;
+    public UsageStatus UseStatus
+    {
+        get
+        {
+           return useStatus;
+        }
+        set
+        {
+            useStatus = value;
+        }
+    }
 }
