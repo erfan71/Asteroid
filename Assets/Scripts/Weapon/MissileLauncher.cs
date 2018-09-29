@@ -10,7 +10,7 @@ public class MissileLauncher : Weapon {
     {
         if (Time.time - lastFireTime > fireRate)
         {
-            Ammo ammoInstance = ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
+            Ammo ammoInstance = GetObjectFromPool();
             ammoInstance.transform.position = MainBarrel.transform.position;
             ammoInstance.transform.parent = ammoParents;
             ammoInstance.Setup();

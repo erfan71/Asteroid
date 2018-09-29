@@ -16,8 +16,7 @@ public class Ammo : MonoBehaviour
         Invoke("DestroyAmmo", timeToDestroy);
     }
     private void DestroyAmmo()
-    {
-       
+    {      
         ObjectPoolManager.Instance.RecyleObject(GetComponent<PoolableObjectInstance>());
     }
 

@@ -14,5 +14,9 @@ public class Weapon : MonoBehaviour {
     {
 
     }
+    protected Ammo GetObjectFromPool()
+    {
+       return ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
+    }
 
 }
