@@ -12,8 +12,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = GameObject.FindObjectOfType<ObjectPoolManager
->();
+                instance = GameObject.FindObjectOfType<ObjectPoolManager>();
             }
             return instance;
         }
