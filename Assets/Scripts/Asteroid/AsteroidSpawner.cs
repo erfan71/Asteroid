@@ -74,28 +74,26 @@ public class AsteroidSpawner : MonoBehaviour
         return new Vector2(calculatedX, calculatedY);
     }
 
-    public Quaternion CalculateDirectionToCenter(Vector3 fromPosition)
+    public Vector2 CalculateDirectionToCenter(Vector3 fromPosition)
     {
         Vector3 diff = Vector3.zero - fromPosition;
-        diff.Normalize();
-
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(0f, 0f, rot_z - 90);
+        // float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        return diff.normalized;
     }
     private void SpawnAsteroid()
     {
         Vector2 startPos = FindRandomeSpawnPosition();
-        Quaternion rotation = CalculateDirectionToCenter(startPos);
+        Vector2 direction = CalculateDirectionToCenter(startPos);
         float speed = GetRandomeSpawnSpeed();
         float scale = GetRandomSpawnScale();
         Asteroid asteroid = ObjectPoolManager.Instance.GetObject<Asteroid>(asteroidObjectPoolKey);
-        asteroid.Setup(asteroidsParent, startPos, rotation, speed, scale);
+        asteroid.Setup(asteroidsParent, startPos, direction, speed, scale);
         asteroid.AsteroidCollisionAction += OnAsteroidCollisionCallack;
     }
-    private void SpawnAsteroid(Vector2 startPos, Quaternion rotation, float speed, float scale)
+    private void SpawnAsteroid(Vector2 startPos, Vector2 direction, float speed, float scale)
     {
         Asteroid asteroid = ObjectPoolManager.Instance.GetObject<Asteroid>(asteroidObjectPoolKey);
-        asteroid.Setup(asteroidsParent, startPos, rotation, speed, scale);
+        asteroid.Setup(asteroidsParent, startPos, direction, speed, scale);
         asteroid.AsteroidCollisionAction += OnAsteroidCollisionCallack;
     }
     private void OnAsteroidCollisionCallack(Asteroid asteroid, Collider2D obj)
@@ -104,36 +102,40 @@ public class AsteroidSpawner : MonoBehaviour
         {
             if (asteroid.transform.localScale.x * BulletScaleReduction >= 0.25f)
             {
-                Quaternion quat1 = asteroid.transform.rotation;
-                quat1 *= Quaternion.Euler(0, 0, 30);
-                Quaternion quat2 = asteroid.transform.rotation;
-                quat2 *= Quaternion.Euler(0, 0, -30);
-
-                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity(), asteroid.transform.localScale.x * BulletScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity(), asteroid.transform.localScale.x * BulletScaleReduction);
+                Vector2 asteroidDirection = asteroid.GetDirection();
+                Vector2 dir1 = Quaternion.Euler(0, 0, 30) * asteroidDirection;
+                dir1 = dir1.normalized;
+                Vector2 dir2 = Quaternion.Euler(0, 0, -30) * asteroidDirection;
+                dir2 = dir2.normalized;
+                SpawnAsteroid(asteroid.transform.position, dir1, asteroid.GetSpeed(), asteroid.transform.localScale.x * BulletScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, dir2, asteroid.GetSpeed(), asteroid.transform.localScale.x * BulletScaleReduction);
             }
             asteroid.Recycle();
             obj.GetComponent<Ammo>().Recycle();
-           
+
 
         }
         else if (obj.tag == "Missile")
         {
+
             if (asteroid.transform.localScale.x * MissileScaleReduction >= 0.25f)
             {
-                Quaternion quat1 = asteroid.transform.rotation;
-                quat1 *= Quaternion.Euler(0, 0, 30);
-                Quaternion quat2 = asteroid.transform.rotation;
-                quat2 *= Quaternion.Euler(0, 0, -60);
-                Quaternion quat3 = asteroid.transform.rotation;
-                quat3 *= Quaternion.Euler(0, 0, -30);
-                Quaternion quat4 = asteroid.transform.rotation;
-                quat4 *= Quaternion.Euler(0, 0, 60);
+                Vector2 asteroidDirection = asteroid.GetDirection();
 
-                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat3, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat4, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
+                Vector2 dir1 = Quaternion.Euler(0, 0, 15) * asteroidDirection;
+                dir1 = dir1.normalized;
+                Vector2 dir2 = Quaternion.Euler(0, 0, 45) * asteroidDirection;
+                dir2 = dir2.normalized;
+
+                Vector2 dir3 = Quaternion.Euler(0, 0, -15) * asteroidDirection;
+                dir3 = dir3.normalized;
+                Vector2 dir4 = Quaternion.Euler(0, 0, -45) * asteroidDirection;
+                dir4 = dir4.normalized;
+
+                SpawnAsteroid(asteroid.transform.position, dir1, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, dir2, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, dir3, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, dir4, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
 
             }
             asteroid.Recycle();
@@ -145,9 +147,10 @@ public class AsteroidSpawner : MonoBehaviour
     {
         float i = 0.0f;
 
-        while (i <= 1)
+        while (true)
         {
             i += gettingHardRate * Time.deltaTime;
+            i = Mathf.Clamp(i, 0, 1);
             float delay = Mathf.Lerp(spawnTime_MaxMin.x, spawnTime_MaxMin.y, i);
             SpawnAsteroid();
             yield return new WaitForSeconds(delay);

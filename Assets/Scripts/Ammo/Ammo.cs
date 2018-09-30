@@ -16,6 +16,7 @@ public class Ammo : MonoBehaviour
     {
         Invoke("Recycle", timeToDestroy);
     }
+    
     public void Recycle()
     {
         _rigidBody.velocity = Vector2Int.zero;

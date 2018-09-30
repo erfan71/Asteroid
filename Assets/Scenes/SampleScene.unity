@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1032650ac84934b97256818f5665ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidSpawnSpeed_MinMax: {x: 10, y: 100}
+  asteroidSpawnSpeed_MinMax: {x: 50, y: 100}
   asteroidSpawnScale_MinMax: {x: 0.5, y: 2}
   boundry: {fileID: 519420030}
   asteroidObjectPoolKey: Asteroid

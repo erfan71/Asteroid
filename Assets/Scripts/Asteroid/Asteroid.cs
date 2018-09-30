@@ -10,20 +10,17 @@ public class Asteroid : MonoBehaviour
     private float setupTime;
     private float speed;
 
-    private const float sheildTime = 0.5f;
+    private const float sheildTime = 0.25f;
 
-    public void Setup(Transform parent, Vector2 startPos, Quaternion startRotation, float speed, float scale)
+    public void Setup(Transform parent, Vector2 startPos, Vector2 direction, float speed, float scale)
     {
-        Debug.Log(startRotation);
         _rigidBody = GetComponent<Rigidbody2D>();
         transform.position = startPos;
-        transform.rotation = startRotation;
         transform.localScale = new Vector3(scale, scale, scale);
-        transform.parent = parent;
-        Vector3 velocity = transform.rotation * Vector3.up;
-        this.speed = speed;     
-        _rigidBody.AddRelativeForce(velocity * speed);
-       // _rigidBody.AddTorque(speed);
+        transform.parent = parent;      
+        this.speed = speed;
+          _rigidBody.AddRelativeForce(direction * speed);
+        _rigidBody.AddTorque(2*speed);
         setupTime = Time.time;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,9 +29,13 @@ public class Asteroid : MonoBehaviour
             if (AsteroidCollisionAction != null)
                 AsteroidCollisionAction(this, collision);
     }
-    public float GetVelocity()
+    public float GetSpeed()
     {
         return speed;
+    }
+    public Vector2 GetDirection()
+    {
+        return _rigidBody.velocity.normalized;
     }
     public void Recycle()
     {
