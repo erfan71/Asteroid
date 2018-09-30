@@ -77,7 +77,6 @@ public class AsteroidSpawner : MonoBehaviour
     public Vector2 CalculateDirectionToCenter(Vector3 fromPosition)
     {
         Vector3 diff = Vector3.zero - fromPosition;
-        // float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         return diff.normalized;
     }
     private void SpawnAsteroid()
@@ -112,8 +111,6 @@ public class AsteroidSpawner : MonoBehaviour
             }
             asteroid.Recycle();
             obj.GetComponent<Ammo>().Recycle();
-
-
         }
         else if (obj.tag == "Missile")
         {
