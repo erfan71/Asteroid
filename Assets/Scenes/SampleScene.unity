@@ -723,7 +723,7 @@ MonoBehaviour:
   ammoKey: Bullet
   ammoParents: {fileID: 458817032}
   firePower: 600
-  fireRate: 0.25
+  fireRate: 0.3
   MainBarrel: {fileID: 601017768}
   RightBarrel: {fileID: 544097032}
   LeftBarrel: {fileID: 1220579031}

@@ -14,6 +14,9 @@ public class AsteroidSpawner : MonoBehaviour
     public Vector2 spawnTime_MaxMin;
     public float gettingHardRate;
 
+    private const float BulletScaleReduction = 0.55f;
+    private const float MissileScaleReduction = 0.25f;
+
     private const int extentMargin = 5;
 
     private void Start()
@@ -87,11 +90,61 @@ public class AsteroidSpawner : MonoBehaviour
         float scale = GetRandomSpawnScale();
         Asteroid asteroid = ObjectPoolManager.Instance.GetObject<Asteroid>(asteroidObjectPoolKey);
         asteroid.Setup(asteroidsParent, startPos, rotation, speed, scale);
+        asteroid.AsteroidCollisionAction += OnAsteroidCollisionCallack;
     }
+    private void SpawnAsteroid(Vector2 startPos, Quaternion rotation, float speed, float scale)
+    {
+        Asteroid asteroid = ObjectPoolManager.Instance.GetObject<Asteroid>(asteroidObjectPoolKey);
+        asteroid.Setup(asteroidsParent, startPos, rotation, speed, scale);
+        asteroid.AsteroidCollisionAction += OnAsteroidCollisionCallack;
+    }
+    private void OnAsteroidCollisionCallack(Asteroid asteroid, Collider2D obj)
+    {
+        if (obj.tag == "Bullet")
+        {
+            if (asteroid.transform.localScale.x * BulletScaleReduction >= 0.25f)
+            {
+                Quaternion quat1 = asteroid.transform.rotation;
+                quat1 *= Quaternion.Euler(0, 0, 30);
+                Quaternion quat2 = asteroid.transform.rotation;
+                quat2 *= Quaternion.Euler(0, 0, -30);
+
+                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
+                Destroy(asteroid.gameObject);
+            }
+
+            Destroy(asteroid.gameObject);
+            Destroy(obj.gameObject);
+        }
+        else if (obj.tag == "Missile")
+        {
+            if (asteroid.transform.localScale.x * MissileScaleReduction >= 0.25f)
+            {
+                Quaternion quat1 = asteroid.transform.rotation;
+                quat1 *= Quaternion.Euler(0, 0, 30);
+                Quaternion quat2 = asteroid.transform.rotation;
+                quat2 *= Quaternion.Euler(0, 0, -60);
+                Quaternion quat3 = asteroid.transform.rotation;
+                quat3 *= Quaternion.Euler(0, 0, -30);
+                Quaternion quat4 = asteroid.transform.rotation;
+                quat4 *= Quaternion.Euler(0, 0, 60);
+
+                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat3, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat4, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
+
+            }
+            Destroy(asteroid.gameObject);
+            Destroy(obj.gameObject);
+        }
+    }
+
     IEnumerator SpawningRoutine()
     {
         float i = 0.0f;
-        
+
         while (i <= 1)
         {
             i += gettingHardRate * Time.deltaTime;
