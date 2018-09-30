@@ -95,13 +95,12 @@ public class ObjectPoolManager : MonoBehaviour
         temp.GetComponent<PoolableObjectInstance>().UseStatus = PoolableObjectInstance.UsageStatus.InUse;
         return temp;
     }
-    public void RecyleObject(PoolableObjectInstance poi)
+    public void RecycleObject(PoolableObjectInstance poi)
     {
         if (poi.UseStatus == PoolableObjectInstance.UsageStatus.InUse)
         {
             poi.gameObject.SetActive(false);
             poi.transform.SetParent(this.transform);
-            poi.transform.localScale = Vector3.one;
             poi.UseStatus = PoolableObjectInstance.UsageStatus.Ready;
             objectsPool[poi.Key].Add(poi.gameObject);
         }

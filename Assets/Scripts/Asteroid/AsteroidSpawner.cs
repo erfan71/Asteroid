@@ -26,12 +26,12 @@ public class AsteroidSpawner : MonoBehaviour
 
     public float GetRandomeSpawnSpeed()
     {
-        float speed = Random.Range(asteroidSpawnSpeed_MinMax.x, asteroidSpawnSpeed_MinMax.y + 1);
+        float speed = Random.Range(asteroidSpawnSpeed_MinMax.x, asteroidSpawnSpeed_MinMax.y);
         return speed;
     }
     public float GetRandomSpawnScale()
     {
-        float scale = Random.Range(asteroidSpawnScale_MinMax.x, asteroidSpawnScale_MinMax.y + 1);
+        float scale = Random.Range(asteroidSpawnScale_MinMax.x, asteroidSpawnScale_MinMax.y);
         return scale;
     }
     public Vector2 FindRandomeSpawnPosition()
@@ -109,11 +109,12 @@ public class AsteroidSpawner : MonoBehaviour
                 Quaternion quat2 = asteroid.transform.rotation;
                 quat2 *= Quaternion.Euler(0, 0, -30);
 
-                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity(), asteroid.transform.localScale.x * BulletScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity(), asteroid.transform.localScale.x * BulletScaleReduction);
             }
-            ObjectPoolManager.Instance.RecyleObject(asteroid.GetComponent<PoolableObjectInstance>());
-            ObjectPoolManager.Instance.RecyleObject(obj.GetComponent<PoolableObjectInstance>());
+            asteroid.Recycle();
+            obj.GetComponent<Ammo>().Recycle();
+           
 
         }
         else if (obj.tag == "Missile")
@@ -129,14 +130,14 @@ public class AsteroidSpawner : MonoBehaviour
                 Quaternion quat4 = asteroid.transform.rotation;
                 quat4 *= Quaternion.Euler(0, 0, 60);
 
-                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat3, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
-                SpawnAsteroid(asteroid.transform.position, quat4, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat3, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
+                SpawnAsteroid(asteroid.transform.position, quat4, asteroid.GetVelocity() , asteroid.transform.localScale.x * MissileScaleReduction);
 
             }
-            ObjectPoolManager.Instance.RecyleObject(asteroid.GetComponent<PoolableObjectInstance>());
-            ObjectPoolManager.Instance.RecyleObject(obj.GetComponent<PoolableObjectInstance>());
+            asteroid.Recycle();
+            obj.GetComponent<Ammo>().Recycle();
         }
     }
 
@@ -148,7 +149,6 @@ public class AsteroidSpawner : MonoBehaviour
         {
             i += gettingHardRate * Time.deltaTime;
             float delay = Mathf.Lerp(spawnTime_MaxMin.x, spawnTime_MaxMin.y, i);
-            Debug.Log(delay);
             SpawnAsteroid();
             yield return new WaitForSeconds(delay);
         }

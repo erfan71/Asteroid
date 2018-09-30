@@ -10,14 +10,18 @@ public class Ammo : MonoBehaviour
     public void Setup()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+      
     }
     public virtual void Fire(Vector2 force)
     {
-        Invoke("DestroyAmmo", timeToDestroy);
+        Invoke("Recycle", timeToDestroy);
     }
-    private void DestroyAmmo()
-    {      
-        ObjectPoolManager.Instance.RecyleObject(GetComponent<PoolableObjectInstance>());
+    public void Recycle()
+    {
+        _rigidBody.velocity = Vector2Int.zero;
+        _rigidBody.angularVelocity = 0;
+        CancelInvoke("Recycle");
+        ObjectPoolManager.Instance.RecycleObject(GetComponent<PoolableObjectInstance>());
     }
 
 }

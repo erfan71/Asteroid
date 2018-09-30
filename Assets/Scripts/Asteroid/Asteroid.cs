@@ -14,14 +14,16 @@ public class Asteroid : MonoBehaviour
 
     public void Setup(Transform parent, Vector2 startPos, Quaternion startRotation, float speed, float scale)
     {
+        Debug.Log(startRotation);
         _rigidBody = GetComponent<Rigidbody2D>();
         transform.position = startPos;
         transform.rotation = startRotation;
-        transform.parent = parent;
         transform.localScale = new Vector3(scale, scale, scale);
+        transform.parent = parent;
         Vector3 velocity = transform.rotation * Vector3.up;
-        this.speed = speed;
+        this.speed = speed;     
         _rigidBody.AddRelativeForce(velocity * speed);
+       // _rigidBody.AddTorque(speed);
         setupTime = Time.time;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,5 +35,14 @@ public class Asteroid : MonoBehaviour
     public float GetVelocity()
     {
         return speed;
+    }
+    public void Recycle()
+    {
+        _rigidBody.velocity = Vector2.zero;
+        _rigidBody.angularVelocity = 0;
+        AsteroidCollisionAction = null;
+        transform.rotation = Quaternion.identity;
+        ObjectPoolManager.Instance.RecycleObject(gameObject.GetComponent<PoolableObjectInstance>());
+
     }
 }
