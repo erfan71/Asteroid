@@ -111,11 +111,10 @@ public class AsteroidSpawner : MonoBehaviour
 
                 SpawnAsteroid(asteroid.transform.position, quat1, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
                 SpawnAsteroid(asteroid.transform.position, quat2, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * BulletScaleReduction);
-                Destroy(asteroid.gameObject);
             }
+            ObjectPoolManager.Instance.RecyleObject(asteroid.GetComponent<PoolableObjectInstance>());
+            ObjectPoolManager.Instance.RecyleObject(obj.GetComponent<PoolableObjectInstance>());
 
-            Destroy(asteroid.gameObject);
-            Destroy(obj.gameObject);
         }
         else if (obj.tag == "Missile")
         {
@@ -136,8 +135,8 @@ public class AsteroidSpawner : MonoBehaviour
                 SpawnAsteroid(asteroid.transform.position, quat4, asteroid.GetVelocity() / 1.5f, asteroid.transform.localScale.x * MissileScaleReduction);
 
             }
-            Destroy(asteroid.gameObject);
-            Destroy(obj.gameObject);
+            ObjectPoolManager.Instance.RecyleObject(asteroid.GetComponent<PoolableObjectInstance>());
+            ObjectPoolManager.Instance.RecyleObject(obj.GetComponent<PoolableObjectInstance>());
         }
     }
 

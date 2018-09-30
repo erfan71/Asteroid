@@ -101,6 +101,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             poi.gameObject.SetActive(false);
             poi.transform.SetParent(this.transform);
+            poi.transform.localScale = Vector3.one;
             poi.UseStatus = PoolableObjectInstance.UsageStatus.Ready;
             objectsPool[poi.Key].Add(poi.gameObject);
         }

@@ -18,7 +18,7 @@ public class Asteroid : MonoBehaviour
         transform.position = startPos;
         transform.rotation = startRotation;
         transform.parent = parent;
-        transform.localScale *= scale;
+        transform.localScale = new Vector3(scale, scale, scale);
         Vector3 velocity = transform.rotation * Vector3.up;
         this.speed = speed;
         _rigidBody.AddRelativeForce(velocity * speed);
