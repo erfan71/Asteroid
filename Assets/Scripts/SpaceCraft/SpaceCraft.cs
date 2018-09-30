@@ -83,7 +83,7 @@ public class SpaceCraft : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse0))
             machinGun.Fire(transform.up);
-        else if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
             launcher.Fire(transform.up);
         }

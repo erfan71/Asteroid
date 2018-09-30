@@ -12,8 +12,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = GameObject.FindObjectOfType<ObjectPoolManager
->();
+                instance = GameObject.FindObjectOfType<ObjectPoolManager>();
             }
             return instance;
         }
@@ -96,7 +95,7 @@ public class ObjectPoolManager : MonoBehaviour
         temp.GetComponent<PoolableObjectInstance>().UseStatus = PoolableObjectInstance.UsageStatus.InUse;
         return temp;
     }
-    public void RecyleObject(PoolableObjectInstance poi)
+    public void RecycleObject(PoolableObjectInstance poi)
     {
         if (poi.UseStatus == PoolableObjectInstance.UsageStatus.InUse)
         {

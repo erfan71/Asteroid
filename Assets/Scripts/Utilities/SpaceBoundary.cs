@@ -41,9 +41,7 @@ public class SpaceBoundary : MonoBehaviour
         float aspect = main.aspect;
         float orthoSize = main.orthographicSize;
         Vector3 cameraPosition = main.transform.position;
-
         float horizontalExtent = aspect * orthoSize;
-
 
         float rightX = horizontalExtent + cameraPosition.x;
         float leftX = cameraPosition.x - horizontalExtent;

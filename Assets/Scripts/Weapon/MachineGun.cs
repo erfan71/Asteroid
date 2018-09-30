@@ -13,9 +13,9 @@ public class MachineGun : Weapon {
     {
         if (Time.time - lastFireTime > fireRate)
         {
-            Ammo ammoInstance1 = ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
-            Ammo ammoInstance2 = ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
-            Ammo ammoInstance3 = ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
+            Ammo ammoInstance1 = GetObjectFromPool();  
+            Ammo ammoInstance2 = GetObjectFromPool();
+            Ammo ammoInstance3 = GetObjectFromPool();
 
             ammoInstance1.transform.position = MainBarrel.transform.position;
             ammoInstance1.transform.parent = ammoParents;
@@ -33,7 +33,9 @@ public class MachineGun : Weapon {
             ammoInstance3.Fire(new Vector2(direction.x * firePower, direction.y * firePower));
             lastFireTime = Time.time;
         }
-
+    }
+    private void Update()
+    {
     }
 
 }

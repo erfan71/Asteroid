@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -38,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 3149061459
+    locked: 0
+  - name: Ammo
+    uniqueID: 1739461985
+    locked: 0
+  - name: Asteroid
+    uniqueID: 3851228159
+    locked: 0
+  - name: SpaceCraft
+    uniqueID: 1138739457
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
