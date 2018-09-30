@@ -33,7 +33,9 @@ public class MachineGun : Weapon {
             ammoInstance3.Fire(new Vector2(direction.x * firePower, direction.y * firePower));
             lastFireTime = Time.time;
         }
-
+    }
+    private void Update()
+    {
     }
 
 }

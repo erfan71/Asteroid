@@ -207,8 +207,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1145905837
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fec89e77407331e43854a3431b432388, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -321,8 +321,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1138739457
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9987be80e72d4a94097fd1accc901dc9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -412,6 +412,9 @@ MonoBehaviour:
     count: 200
   - key: Missile
     prefab: {fileID: 1317612597139262, guid: 85236d1e330c80c42bedfd0c2b182502, type: 2}
+    count: 50
+  - key: Asteroid
+    prefab: {fileID: 1479354793786526, guid: 817fdf767afd69341aff18068dd86e74, type: 2}
     count: 50
 --- !u!4 &338948636
 Transform:
@@ -626,6 +629,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2141632285}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1604294333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604294335}
+  - component: {fileID: 1604294334}
+  m_Layer: 0
+  m_Name: AsteroidSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1604294334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604294333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1032650ac84934b97256818f5665ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidSpawnSpeed_MinMax: {x: 10, y: 100}
+  asteroidSpawnScale_MinMax: {x: 0.5, y: 2}
+  boundry: {fileID: 519420030}
+  asteroidObjectPoolKey: Asteroid
+  asteroidsParent: {fileID: 1604294335}
+  spawnTime_MaxMin: {x: 5, y: 0.5}
+  gettingHardRate: 1
+--- !u!4 &1604294335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604294333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.64, y: 4.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2141632284
 GameObject:
