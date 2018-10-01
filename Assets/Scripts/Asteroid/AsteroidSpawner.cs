@@ -19,6 +19,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     private const int extentMargin = 5;
 
+    public System.Action<Asteroid> AsteroidDestroyedAction;
+
     private void Start()
     {
         StartCoroutine(SpawningRoutine());
@@ -111,6 +113,8 @@ public class AsteroidSpawner : MonoBehaviour
             }
             asteroid.Recycle();
             obj.GetComponent<Ammo>().Recycle();
+            if(AsteroidDestroyedAction!=null)
+                AsteroidDestroyedAction(asteroid);
         }
         else if (obj.tag == "Missile")
         {
@@ -133,10 +137,12 @@ public class AsteroidSpawner : MonoBehaviour
                 SpawnAsteroid(asteroid.transform.position, dir2, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
                 SpawnAsteroid(asteroid.transform.position, dir3, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
                 SpawnAsteroid(asteroid.transform.position, dir4, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
-
+                
             }
             asteroid.Recycle();
             obj.GetComponent<Ammo>().Recycle();
+            if (AsteroidDestroyedAction != null)
+                AsteroidDestroyedAction(asteroid);
         }
     }
 
