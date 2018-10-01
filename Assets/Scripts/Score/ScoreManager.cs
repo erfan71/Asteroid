@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour {
 
     public int destroyingAsteroidScore;
+    public ScoreHUDManager scoreHUD;
 
     private int currentScore;
     public int CurrentScore
@@ -23,6 +24,6 @@ public class ScoreManager : MonoBehaviour {
     public void DestoryAsteroid()
     {
         CurrentScore += destroyingAsteroidScore;
-        Debug.Log(CurrentScore);
+        scoreHUD.UpdateScore(CurrentScore);
     }
 }

@@ -21,7 +21,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     public System.Action<Asteroid> AsteroidDestroyedAction;
 
-    private void Start()
+    public void StartSpawning()
     {
         StartCoroutine(SpawningRoutine());
     }

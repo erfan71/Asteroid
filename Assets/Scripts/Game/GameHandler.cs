@@ -11,6 +11,7 @@ public class GameHandler : MonoBehaviour {
 
     private void Start()
     {
+        asteroidSpawner.StartSpawning();
         asteroidSpawner.AsteroidDestroyedAction += AsteroidDestroyedCallBack;
         timeManager.StartTimer();
     }
