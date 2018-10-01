@@ -752,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyingAsteroidScore: 100
+  scoreHUD: {fileID: 1035007662}
 --- !u!1 &601017767
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf6005ff8529264daea7a17049f79d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textVar: {fileID: 880623905}
 --- !u!1 &1220092790
 GameObject:
   m_ObjectHideFlags: 0
