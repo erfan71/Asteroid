@@ -16,6 +16,9 @@ public class AsteroidSpawner : MonoBehaviour
 
     private const float BulletScaleReduction = 0.55f;
     private const float MissileScaleReduction = 0.25f;
+    private const string BulletTag = "Bullet";
+    private const string MissileTag = "Missile";
+
 
     private const int extentMargin = 5;
 
@@ -99,7 +102,7 @@ public class AsteroidSpawner : MonoBehaviour
     }
     private void OnAsteroidCollisionCallack(Asteroid asteroid, Collider2D obj)
     {
-        if (obj.tag == "Bullet")
+        if (obj.tag == BulletTag)
         {
             if (asteroid.transform.localScale.x * BulletScaleReduction >= 0.25f)
             {
@@ -116,7 +119,7 @@ public class AsteroidSpawner : MonoBehaviour
             if(AsteroidDestroyedAction!=null)
                 AsteroidDestroyedAction(asteroid);
         }
-        else if (obj.tag == "Missile")
+        else if (obj.tag == MissileTag)
         {
 
             if (asteroid.transform.localScale.x * MissileScaleReduction >= 0.25f)
