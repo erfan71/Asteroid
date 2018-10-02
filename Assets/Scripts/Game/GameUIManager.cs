@@ -6,14 +6,20 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+    [Header("GamePanel")]
     public Button startButton;
     public Button restartButton;
     public Button resumeButton;
     public Button exitButton;
-
     public GameHandler gamehandler;
     public GameObject menuPanel;
     public GameObject upPanel;
+    [Space]
+    [Header("GameOverMenu")]
+    public Text gameOverPointsVar;
+    public Button gameOverExitButton;
+    public Button gameOVerRestartButton; 
+    public GameObject gameOverMenu;
 
     private static bool showtheMenu = true;
 
@@ -26,9 +32,12 @@ public class GameUIManager : MonoBehaviour
         resumeButton.onClick.AddListener(() => OnResumeButtonClicked());
         restartButton.onClick.AddListener(() => OnRestartButtonClicked());
         exitButton.onClick.AddListener(() => OnExitButtonClicked());
+        gameOVerRestartButton.onClick.AddListener(() => OnRestartButtonClicked());
+        gameOverExitButton.onClick.AddListener(() => OnExitButtonClicked());
 
         restartButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
+        gameOverMenu.SetActive(false);
 
         if (!showtheMenu)
         {
@@ -88,6 +97,11 @@ public class GameUIManager : MonoBehaviour
         showtheMenu = false;
         gamehandler.RestartTheGame();
 
+    }
+    public void GameOver(int score)
+    {
+        gameOverMenu.SetActive(true);
+        gameOverPointsVar.text = score.ToString();
     }
     private void Update()
     {

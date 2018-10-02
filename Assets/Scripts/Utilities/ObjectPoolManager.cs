@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-        #region Singeleton
+    #region Singleton
     private static ObjectPoolManager instance;
     public static ObjectPoolManager Instance
     {
@@ -17,7 +17,7 @@ public class ObjectPoolManager : MonoBehaviour
             return instance;
         }
     }
-    #endregion Singeleton
+    #endregion Singleton
     // Use this for initialization
     [System.Serializable]
     public struct PoolableObjectConfig
@@ -40,7 +40,7 @@ public class ObjectPoolManager : MonoBehaviour
     {
         objectsPool = new Dictionary<string, List<GameObject>>();
         foreach (PoolableObjectConfig obj in objectsDetail)
-        {          
+        {
             objectsPool.Add(obj.key, InstantiateObjectForPool(obj));
         }
 
@@ -75,9 +75,9 @@ public class ObjectPoolManager : MonoBehaviour
             {
                 PoolableObjectConfig objconf = new PoolableObjectConfig(key, objectWithThisKey[0], defaultRegenerateCount);
                 objectWithThisKey.AddRange(InstantiateObjectForPool(objconf));
-              
+
                 return PrepareItemtoExit(objectWithThisKey).GetComponent<T>();
-            }       
+            }
         }
         else
         {
@@ -104,7 +104,7 @@ public class ObjectPoolManager : MonoBehaviour
             poi.UseStatus = PoolableObjectInstance.UsageStatus.Ready;
             objectsPool[poi.Key].Add(poi.gameObject);
         }
-       
+
     }
 }
 

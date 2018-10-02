@@ -11,7 +11,20 @@ public class GameHandler : MonoBehaviour {
     public TimeManager timeManager;
     public SpaceCraft spaceCraft;
     public GameUIManager gameUI;
-
+    #region Singleton
+    private static GameHandler instance;
+    public static GameHandler Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<GameHandler>();
+            }
+            return instance;
+        }
+    }
+    #endregion Singleton
     public enum GameStateEnum
     {
         Menu,
@@ -63,6 +76,11 @@ public class GameHandler : MonoBehaviour {
     public void RestartTheGame()
     {
         SceneManager.LoadScene("Main");
+    }
+    public void GameOver()
+    {
+        PauseTheGame();
+        gameUI.GameOver(scoreManager.CurrentScore);
     }
 
 }

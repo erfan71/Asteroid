@@ -113,6 +113,7 @@ public class SpaceCraft : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
+            GameHandler.Instance.GameOver();
         }
         else
         {
