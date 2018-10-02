@@ -34,8 +34,4 @@ public class MachineGun : Weapon {
             lastFireTime = Time.time;
         }
     }
-    private void Update()
-    {
-    }
-
 }

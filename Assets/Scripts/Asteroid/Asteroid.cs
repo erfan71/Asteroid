@@ -37,6 +37,10 @@ public class Asteroid : MonoBehaviour
     {
         return speed;
     }
+    public float GetRigidBodySpeed()
+    {
+        return _rigidBody.velocity.magnitude;
+    }
     public Vector2 GetDirection()
     {
         return _rigidBody.velocity.normalized;
