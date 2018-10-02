@@ -6,6 +6,7 @@ public class ScoreManager : MonoBehaviour {
 
     public int destroyingAsteroidScore;
     public ScoreHUDManager scoreHUD;
+    public AsteroidSpawner asteroidSpawner;
 
     private int currentScore;
     public int CurrentScore
@@ -20,10 +21,22 @@ public class ScoreManager : MonoBehaviour {
         }
     }
 
-   
+    private void Start()
+    {
+        asteroidSpawner.AsteroidDestroyedAction += AsteroidDestroyedCallBack;
+    }
+    private void OnDestroy()
+    {
+        asteroidSpawner.AsteroidDestroyedAction -= AsteroidDestroyedCallBack;
+    }
+
     public void DestoryAsteroid()
     {
         CurrentScore += destroyingAsteroidScore;
         scoreHUD.UpdateScore(CurrentScore);
+    }
+    private void AsteroidDestroyedCallBack(Asteroid obj)
+    {
+        DestoryAsteroid();
     }
 }

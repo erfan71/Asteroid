@@ -21,6 +21,10 @@ public class SpaceCraft : MonoBehaviour
     private float health;
     private const float damageMaginifire = 1f;
 
+    public System.Action ZeroHealthAction;
+    public System.Action MissileFireAction;
+
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -90,10 +94,14 @@ public class SpaceCraft : MonoBehaviour
     void FireHandling()
     {
         if (Input.GetKey(KeyCode.Mouse0))
+        {
             machinGun.Fire(transform.up);
+           
+        }
         if (Input.GetKey(KeyCode.Mouse1))
         {
             launcher.Fire(transform.up);
+           
         }
     }
 
@@ -106,23 +114,24 @@ public class SpaceCraft : MonoBehaviour
     }
     void HandleAsteroidCollision(Asteroid asteroid)
     {
-        float damage = DamageCalculator(asteroid.transform.localScale.x,asteroid.GetRigidBodySpeed());
+        float damage = DamageCalculator(asteroid.transform.localScale.x, asteroid.GetRigidBodySpeed());
 
         health -= damage;
 
         if (health <= 0)
         {
             health = 0;
-            GameHandler.Instance.GameOver();
+            if (ZeroHealthAction != null)
+                ZeroHealthAction();
         }
         else
         {
-            spaceHUd.SetHealthBarVar( health / MaxHealth);
+            spaceHUd.SetHealthBarVar(health / MaxHealth);
         }
     }
     float DamageCalculator(float asteroidScale, float asteroidSpeed)
     {
-        return asteroidScale * asteroidSpeed * damageMaginifire * GetSpeed() ;
+        return asteroidScale * asteroidSpeed * damageMaginifire * GetSpeed();
     }
     float GetSpeed()
     {

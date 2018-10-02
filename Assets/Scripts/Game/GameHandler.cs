@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour {
 
-    public ScoreManager scoreManager;
     public AsteroidSpawner asteroidSpawner;
     public TimeManager timeManager;
     public SpaceCraft spaceCraft;
@@ -42,20 +41,16 @@ public class GameHandler : MonoBehaviour {
     {
         Time.timeScale = 1;
         asteroidSpawner.StartSpawning();
-        asteroidSpawner.AsteroidDestroyedAction += AsteroidDestroyedCallBack;
+        spaceCraft.ZeroHealthAction += GameOver;
         timeManager.StartTimer();
         gameState = GameStateEnum.Run;
         spaceCraft.enabled = true;
     }
     private void OnDestroy()
     {
-        asteroidSpawner.AsteroidDestroyedAction -= AsteroidDestroyedCallBack;
+        spaceCraft.ZeroHealthAction -= GameOver;
     }
-    private void AsteroidDestroyedCallBack(Asteroid obj)
-    {
-        scoreManager.DestoryAsteroid();
-    }
-
+   
     public void ExitTheGame()
     {
         Application.Quit();
@@ -80,7 +75,6 @@ public class GameHandler : MonoBehaviour {
     public void GameOver()
     {
         PauseTheGame();
-        gameUI.GameOver(scoreManager.CurrentScore);
     }
 
 }

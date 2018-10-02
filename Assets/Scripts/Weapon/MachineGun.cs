@@ -7,6 +7,7 @@ public class MachineGun : Weapon {
     public Transform MainBarrel;
     public Transform RightBarrel;
     public Transform LeftBarrel;
+    public System.Action MachingunfireAction;
 
 
     public override void Fire(Vector2 direction)
@@ -32,6 +33,10 @@ public class MachineGun : Weapon {
             ammoInstance3.Setup();
             ammoInstance3.Fire(new Vector2(direction.x * firePower, direction.y * firePower));
             lastFireTime = Time.time;
+
+            base.Fire(direction);
+            if (WeaponfireAction != null)
+                WeaponfireAction(this);
         }
     }
 }

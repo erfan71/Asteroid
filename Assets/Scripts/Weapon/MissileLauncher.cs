@@ -16,6 +16,11 @@ public class MissileLauncher : Weapon {
             ammoInstance.Setup();
             ammoInstance.Fire(new Vector2(direction.x * firePower, direction.y * firePower));
             lastFireTime = Time.time;
+
+            base.Fire(direction);
+
+            if (WeaponfireAction != null)
+                WeaponfireAction(this);
         }
 
     }
