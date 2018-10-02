@@ -13,12 +13,15 @@ public class GameUIManager : MonoBehaviour
 
     public GameHandler gamehandler;
     public GameObject menuPanel;
+    public GameObject upPanel;
 
     private static bool showtheMenu = true;
 
     void Start()
     {
-      
+
+        menuPanel.SetActive(true);
+        upPanel.SetActive(false);
         startButton.onClick.AddListener(() => OnStartButtonClicked());
         resumeButton.onClick.AddListener(() => OnResumeButtonClicked());
         restartButton.onClick.AddListener(() => OnRestartButtonClicked());
@@ -58,6 +61,9 @@ public class GameUIManager : MonoBehaviour
         restartButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(true);
 
+        upPanel.SetActive(true);
+
+
     }
     #endregion
 
@@ -66,12 +72,16 @@ public class GameUIManager : MonoBehaviour
         menuPanel.gameObject.SetActive(true);
         
         gamehandler.PauseTheGame();
+        upPanel.SetActive(false);
+
     }
     public void ResumeGame()
     {
         menuPanel.gameObject.SetActive(false);
 
         gamehandler.ResumeTheGame();
+        upPanel.SetActive(true);
+
     }
     public void RestartGame()
     {
