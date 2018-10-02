@@ -11,6 +11,9 @@ public class Weapon : MonoBehaviour {
     public static System.Action<Weapon> WeaponfireAction;
 
     protected float lastFireTime = -Mathf.Infinity;
+
+    public string fireParticlePoolName;
+
     public virtual void Fire(Vector2 direction)
     {
     }
@@ -18,5 +21,5 @@ public class Weapon : MonoBehaviour {
     {
        return ObjectPoolManager.Instance.GetObject<Ammo>(ammoKey);
     }
-
+   
 }

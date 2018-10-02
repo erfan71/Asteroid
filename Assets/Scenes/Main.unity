@@ -158,6 +158,7 @@ MonoBehaviour:
   ammoParents: {fileID: 458817032}
   firePower: 30
   fireRate: 3
+  fireParticlePoolName: MissileParticle
   MainBarrel: {fileID: 304351775}
 --- !u!1 &61081727
 GameObject:
@@ -1117,6 +1118,12 @@ MonoBehaviour:
     count: 50
   - key: Asteroid
     prefab: {fileID: 1479354793786526, guid: 817fdf767afd69341aff18068dd86e74, type: 2}
+    count: 50
+  - key: MachinGunParticle
+    prefab: {fileID: 1515805371824682, guid: c3d332e70411b614689cfe031c239117, type: 2}
+    count: 50
+  - key: MissileParticle
+    prefab: {fileID: 1046813655100090, guid: a675f917d2694ba40bb450bf6c491e94, type: 2}
     count: 50
 --- !u!4 &338948636
 Transform:
@@ -4807,6 +4814,7 @@ MonoBehaviour:
   ammoParents: {fileID: 458817032}
   firePower: 600
   fireRate: 0.3
+  fireParticlePoolName: MachinGunParticle
   MainBarrel: {fileID: 601017768}
   RightBarrel: {fileID: 544097032}
   LeftBarrel: {fileID: 1220579031}

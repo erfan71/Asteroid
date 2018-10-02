@@ -37,6 +37,12 @@ public class MachineGun : Weapon {
             base.Fire(direction);
             if (WeaponfireAction != null)
                 WeaponfireAction(this);
+            FireParticle();
         }
+    }
+    private void FireParticle()
+    {
+      Transform obj =   ObjectPoolManager.Instance.GetObject<Transform>(fireParticlePoolName);
+      obj.position = MainBarrel.transform.position;
     }
 }

@@ -21,8 +21,14 @@ public class MissileLauncher : Weapon {
 
             if (WeaponfireAction != null)
                 WeaponfireAction(this);
+            FireParticle();
+
         }
 
     }
-
+    private void FireParticle()
+    {
+        Transform obj = ObjectPoolManager.Instance.GetObject<Transform>(fireParticlePoolName);
+        obj.position = MainBarrel.transform.position;
+    }
 }
