@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameHandler : MonoBehaviour {
+public class GameHandler : MonoBehaviour
+{
 
     public AsteroidSpawner asteroidSpawner;
     public TimeManager timeManager;
     public SpaceCraft spaceCraft;
     public GameUIManager gameUI;
+    public ScoreManager scoreManager;
     #region Singleton
     private static GameHandler instance;
     public static GameHandler Instance
@@ -50,16 +52,16 @@ public class GameHandler : MonoBehaviour {
     {
         spaceCraft.ZeroHealthAction -= GameOver;
     }
-   
+
     public void ExitTheGame()
     {
         Application.Quit();
     }
     public void PauseTheGame()
     {
-        Time.timeScale = 0;
         gameState = GameStateEnum.Pause;
         spaceCraft.enabled = false;
+        Time.timeScale = 0;
 
     }
     public void ResumeTheGame()
@@ -75,6 +77,7 @@ public class GameHandler : MonoBehaviour {
     public void GameOver()
     {
         PauseTheGame();
+        gameUI.GameOver(scoreManager.CurrentScore);
     }
 
 }

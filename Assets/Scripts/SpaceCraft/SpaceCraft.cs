@@ -12,6 +12,8 @@ public class SpaceCraft : MonoBehaviour
     public MissileLauncher launcher;
     public SpaceCraftHUDManager spaceHUd;
 
+    public ParticleSystem accelerateParticle;
+
     private Vector2 input;
     private Rigidbody2D rigidBody;
 
@@ -52,6 +54,25 @@ public class SpaceCraft : MonoBehaviour
         rigidBody.AddRelativeForce(new Vector2(0, input.y * movementSpeed));
         rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maximumSpeed);
 
+       
+        HandleAccelerateParticle(input.y);
+    }
+    void HandleAccelerateParticle(float yInput)
+    {
+        if (input.y == 0)
+        {
+            if (!accelerateParticle.isStopped)
+            {
+                accelerateParticle.Stop();
+            }
+        }
+        else
+        {
+            if (!accelerateParticle.isPlaying)
+            {
+                accelerateParticle.Play();
+            }
+        }
     }
     void SpaceCroftBoundryCheck()
     {
@@ -135,6 +156,6 @@ public class SpaceCraft : MonoBehaviour
     }
     float GetSpeed()
     {
-        return rigidBody.velocity.magnitude;
+        return Mathf.Clamp(rigidBody.velocity.magnitude, 1, 100);
     }
 }
