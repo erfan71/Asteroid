@@ -53,8 +53,7 @@ public class SpaceCraft : MonoBehaviour
         transform.Rotate(0, 0, -input.x * turningSpeed * Time.deltaTime);
         rigidBody.AddRelativeForce(new Vector2(0, input.y * movementSpeed));
         rigidBody.velocity = Vector3.ClampMagnitude(rigidBody.velocity, maximumSpeed);
-
-       
+      
         HandleAccelerateParticle(input.y);
     }
     void HandleAccelerateParticle(float yInput)
