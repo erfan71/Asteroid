@@ -19,8 +19,7 @@ public class MissileLauncher : Weapon {
 
             base.Fire(direction);
 
-            if (WeaponfireAction != null)
-                WeaponfireAction(this);
+            WeaponfireAction?.Invoke(this);
             FireParticle();
 
         }

@@ -30,8 +30,7 @@ public class Asteroid : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (Time.time - setupTime > sheildTime)
-            if (AsteroidCollisionAction != null)
-                AsteroidCollisionAction(this, collision);
+            AsteroidCollisionAction?.Invoke(this, collision);
     }
     public float GetSpeed()
     {

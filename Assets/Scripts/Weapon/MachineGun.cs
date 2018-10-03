@@ -35,8 +35,7 @@ public class MachineGun : Weapon {
             lastFireTime = Time.time;
 
             base.Fire(direction);
-            if (WeaponfireAction != null)
-                WeaponfireAction(this);
+            WeaponfireAction?.Invoke(this);
             FireParticle();
         }
     }
