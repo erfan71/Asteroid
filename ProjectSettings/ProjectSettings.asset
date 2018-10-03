@@ -119,7 +119,10 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 1479354793786526, guid: 817fdf767afd69341aff18068dd86e74, type: 2}
+  - {fileID: 1317612597139262, guid: f3c2743b905e270468cd767923865320, type: 2}
+  - {fileID: 1317612597139262, guid: 85236d1e330c80c42bedfd0c2b182502, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -616,7 +619,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 
   projectName: 
   organizationId: 
