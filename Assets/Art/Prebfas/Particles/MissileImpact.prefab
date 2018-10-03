@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 199284408811050656}
   - component: {fileID: 114249079105478818}
   m_Layer: 0
-  m_Name: Impact
+  m_Name: MissileImpact
   m_TagString: FxTemporaire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

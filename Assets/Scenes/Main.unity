@@ -1125,6 +1125,12 @@ MonoBehaviour:
   - key: MissileParticle
     prefab: {fileID: 1046813655100090, guid: a675f917d2694ba40bb450bf6c491e94, type: 2}
     count: 50
+  - key: BulletImpact
+    prefab: {fileID: 1713010145951222, guid: eeac9283957bf53418cd823af792ff1e, type: 2}
+    count: 50
+  - key: MissileImpact
+    prefab: {fileID: 1692886113266600, guid: 34974aae16af99d4680c78088ab9ec57, type: 2}
+    count: 50
 --- !u!4 &338948636
 Transform:
   m_ObjectHideFlags: 0
@@ -3986,6 +3992,8 @@ MonoBehaviour:
   asteroidsParent: {fileID: 1604294335}
   spawnTime_MaxMin: {x: 5, y: 0.5}
   gettingHardRate: 2
+  bulletImpactPoolKey: BulletImpact
+  missileImpactPoolKey: MissileImpact
 --- !u!4 &1604294335
 Transform:
   m_ObjectHideFlags: 0

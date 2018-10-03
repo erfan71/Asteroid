@@ -19,6 +19,9 @@ public class AsteroidSpawner : MonoBehaviour
     private const string BulletTag = "Bullet";
     private const string MissileTag = "Missile";
 
+    public string bulletImpactPoolKey;
+    public string missileImpactPoolKey;
+
 
     private const int extentMargin = 5;
 
@@ -114,10 +117,8 @@ public class AsteroidSpawner : MonoBehaviour
                 SpawnAsteroid(asteroid.transform.position, dir1, asteroid.GetSpeed(), asteroid.transform.localScale.x * BulletScaleReduction);
                 SpawnAsteroid(asteroid.transform.position, dir2, asteroid.GetSpeed(), asteroid.transform.localScale.x * BulletScaleReduction);
             }
-            asteroid.Recycle();
-            obj.GetComponent<Ammo>().Recycle();
-            if(AsteroidDestroyedAction!=null)
-                AsteroidDestroyedAction(asteroid);
+            AsteroidImpact(asteroid, obj.GetComponent<Ammo>());
+
         }
         else if (obj.tag == MissileTag)
         {
@@ -142,11 +143,30 @@ public class AsteroidSpawner : MonoBehaviour
                 SpawnAsteroid(asteroid.transform.position, dir4, asteroid.GetSpeed(), asteroid.transform.localScale.x * MissileScaleReduction);
                 
             }
-            asteroid.Recycle();
-            obj.GetComponent<Ammo>().Recycle();
-            if (AsteroidDestroyedAction != null)
-                AsteroidDestroyedAction(asteroid);
+           
+            AsteroidImpact(asteroid, obj.GetComponent<Ammo>());
         }
+    }
+    void AsteroidImpact(Asteroid asteroid, Ammo ammo)
+    {
+        asteroid.Recycle();
+        ammo.Recycle();
+        if (AsteroidDestroyedAction != null)
+            AsteroidDestroyedAction(asteroid);
+        Transform particle = null;
+        if (ammo is Bullet)
+        {
+            particle = ObjectPoolManager.Instance.GetObject<Transform>(bulletImpactPoolKey);         
+        }
+        else if (ammo is Missile)
+        {
+            particle = ObjectPoolManager.Instance.GetObject<Transform>(missileImpactPoolKey);
+        }
+        else
+        {
+            Debug.LogException(new System.Exception("Please check the ammo type"));
+        }
+        particle.position = asteroid.transform.position;
     }
 
     IEnumerator SpawningRoutine()
