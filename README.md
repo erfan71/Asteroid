@@ -5,3 +5,4 @@ This game is a result of one week work and I didn't put so much effort on it.
 Every image, sounds, and particles that I used in the game are free.
 The design, art, and UI quality is not good at all. please do not judge my programming skills with "Coder Art".
 Enjoy the game. and feel free to use it anywhere, anytime, and anyway.
+Feel free to vist my other sample wotk, Pac-Man in my Git.
